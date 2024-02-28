@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="11255914cc2a42539cb92816a2a7fc94" Name="Diagram1" ZoomLevel="71">
+        <EntityTypeShape EntityType="Otdel_kadrovModel.Dolzhnost" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Otdel_kadrovModel.Lichnie_dannie" Width="1.5" PointX="5.25" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Otdel_kadrovModel.Otdeli" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Otdel_kadrovModel.RaschetZP" Width="1.5" PointX="6.375" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Otdel_kadrovModel.Role" Width="1.5" PointX="7.75" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Otdel_kadrovModel.Sotrudniki" Width="1.5" PointX="3.125" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Otdel_kadrovModel.Users" Width="1.5" PointX="10" PointY="1.375" IsExpanded="true" />
+        <AssociationConnector Association="Otdel_kadrovModel.FK_Sotrudniki_To" ManuallyRouted="false" />
+        <AssociationConnector Association="Otdel_kadrovModel.FK_Lichnie_dannie" ManuallyRouted="false" />
+        <AssociationConnector Association="Otdel_kadrovModel.FK_Sotrudniki" ManuallyRouted="false" />
+        <AssociationConnector Association="Otdel_kadrovModel.FK_RaschetZP_ToTable" ManuallyRouted="false" />
+        <AssociationConnector Association="Otdel_kadrovModel.FK__Users__Id_role__38996AB5" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

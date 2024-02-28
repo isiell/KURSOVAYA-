@@ -1,0 +1,453 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище Otdel_kadrovModel" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Dolzhnost">
+          <Key>
+            <PropertyRef Name="Id_dolzhnost" />
+          </Key>
+          <Property Name="Id_dolzhnost" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Naimenovanie_dolzhnost" Type="nvarchar" MaxLength="80" />
+          <Property Name="Uroven_dolzhnosti" Type="nvarchar" MaxLength="50" />
+          <Property Name="Status_dolzhnosti" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Lichnie_dannie">
+          <Key>
+            <PropertyRef Name="Id_dannih" />
+          </Key>
+          <Property Name="Id_dannih" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id_sotrudnika" Type="int" />
+          <Property Name="Data_rozhdeniya" Type="datetime" />
+          <Property Name="Adres" Type="nvarchar" MaxLength="50" />
+          <Property Name="Pol" Type="nvarchar" MaxLength="1" />
+          <Property Name="Data_priema_na_rab" Type="datetime" />
+          <Property Name="INN" Type="nvarchar" MaxLength="12" />
+          <Property Name="Nomer_medpolisa" Type="nvarchar" MaxLength="16" />
+          <Property Name="SNILS" Type="nvarchar" MaxLength="11" />
+        </EntityType>
+        <EntityType Name="Otdeli">
+          <Key>
+            <PropertyRef Name="Id_otdela" />
+          </Key>
+          <Property Name="Id_otdela" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Namenovanie_otdela" Type="nvarchar" MaxLength="50" />
+          <Property Name="Rukovoditel_otdela" Type="nvarchar" MaxLength="50" />
+          <Property Name="Contactnie_dannie" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="RaschetZP">
+          <Key>
+            <PropertyRef Name="Id_zp" />
+          </Key>
+          <Property Name="Id_zp" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id_sotrudnika" Type="int" />
+          <Property Name="Stavka" Type="int" />
+          <Property Name="Kol_vo_chasov" Type="int" />
+          <Property Name="Summa_k_viplate_do" Type="int" />
+          <Property Name="Data" Type="datetime" />
+          <Property Name="Summa_k_viplate_posle" Type="int" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nazvanie_roli" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Sotrudniki">
+          <Key>
+            <PropertyRef Name="Id_sotrudnika" />
+          </Key>
+          <Property Name="Id_sotrudnika" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Familiya" Type="nvarchar" MaxLength="50" />
+          <Property Name="Imya" Type="nvarchar" MaxLength="50" />
+          <Property Name="Otchestvo" Type="nvarchar" MaxLength="50" />
+          <Property Name="Id_dolzhnost" Type="int" />
+          <Property Name="Photo" Type="nvarchar" MaxLength="100" />
+          <Property Name="Id_otdela" Type="int" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="login" Type="nvarchar" MaxLength="50" />
+          <Property Name="password" Type="nvarchar" MaxLength="50" />
+          <Property Name="Id_role" Type="int" />
+        </EntityType>
+        <Association Name="FK__Users__Id_role__38996AB5">
+          <End Role="Role" Type="Self.Role" Multiplicity="0..1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="Id_role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Lichnie_dannie">
+          <End Role="Sotrudniki" Type="Self.Sotrudniki" Multiplicity="0..1" />
+          <End Role="Lichnie_dannie" Type="Self.Lichnie_dannie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sotrudniki">
+              <PropertyRef Name="Id_sotrudnika" />
+            </Principal>
+            <Dependent Role="Lichnie_dannie">
+              <PropertyRef Name="Id_sotrudnika" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RaschetZP_ToTable">
+          <End Role="Sotrudniki" Type="Self.Sotrudniki" Multiplicity="0..1" />
+          <End Role="RaschetZP" Type="Self.RaschetZP" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sotrudniki">
+              <PropertyRef Name="Id_sotrudnika" />
+            </Principal>
+            <Dependent Role="RaschetZP">
+              <PropertyRef Name="Id_sotrudnika" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sotrudniki">
+          <End Role="Otdeli" Type="Self.Otdeli" Multiplicity="0..1" />
+          <End Role="Sotrudniki" Type="Self.Sotrudniki" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Otdeli">
+              <PropertyRef Name="Id_otdela" />
+            </Principal>
+            <Dependent Role="Sotrudniki">
+              <PropertyRef Name="Id_otdela" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sotrudniki_To">
+          <End Role="Dolzhnost" Type="Self.Dolzhnost" Multiplicity="0..1" />
+          <End Role="Sotrudniki" Type="Self.Sotrudniki" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dolzhnost">
+              <PropertyRef Name="Id_dolzhnost" />
+            </Principal>
+            <Dependent Role="Sotrudniki">
+              <PropertyRef Name="Id_dolzhnost" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище Otdel_kadrovModelContainer">
+          <EntitySet Name="Dolzhnost" EntityType="Self.Dolzhnost" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Lichnie_dannie" EntityType="Self.Lichnie_dannie" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Otdeli" EntityType="Self.Otdeli" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RaschetZP" EntityType="Self.RaschetZP" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sotrudniki" EntityType="Self.Sotrudniki" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Users__Id_role__38996AB5" Association="Self.FK__Users__Id_role__38996AB5">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Lichnie_dannie" Association="Self.FK_Lichnie_dannie">
+            <End Role="Sotrudniki" EntitySet="Sotrudniki" />
+            <End Role="Lichnie_dannie" EntitySet="Lichnie_dannie" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RaschetZP_ToTable" Association="Self.FK_RaschetZP_ToTable">
+            <End Role="Sotrudniki" EntitySet="Sotrudniki" />
+            <End Role="RaschetZP" EntitySet="RaschetZP" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sotrudniki" Association="Self.FK_Sotrudniki">
+            <End Role="Otdeli" EntitySet="Otdeli" />
+            <End Role="Sotrudniki" EntitySet="Sotrudniki" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sotrudniki_To" Association="Self.FK_Sotrudniki_To">
+            <End Role="Dolzhnost" EntitySet="Dolzhnost" />
+            <End Role="Sotrudniki" EntitySet="Sotrudniki" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Otdel_kadrovModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Dolzhnost">
+          <Key>
+            <PropertyRef Name="Id_dolzhnost" />
+          </Key>
+          <Property Name="Id_dolzhnost" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Naimenovanie_dolzhnost" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+          <Property Name="Uroven_dolzhnosti" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Status_dolzhnosti" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Sotrudniki" Relationship="Self.FK_Sotrudniki_To" FromRole="Dolzhnost" ToRole="Sotrudniki" />
+        </EntityType>
+        <EntityType Name="Lichnie_dannie">
+          <Key>
+            <PropertyRef Name="Id_dannih" />
+          </Key>
+          <Property Name="Id_dannih" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id_sotrudnika" Type="Int32" />
+          <Property Name="Data_rozhdeniya" Type="DateTime" Precision="3" />
+          <Property Name="Adres" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Pol" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="Data_priema_na_rab" Type="DateTime" Precision="3" />
+          <Property Name="INN" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
+          <Property Name="Nomer_medpolisa" Type="String" MaxLength="16" FixedLength="false" Unicode="true" />
+          <Property Name="SNILS" Type="String" MaxLength="11" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Sotrudniki" Relationship="Self.FK_Lichnie_dannie" FromRole="Lichnie_dannie" ToRole="Sotrudniki" />
+        </EntityType>
+        <EntityType Name="Otdeli">
+          <Key>
+            <PropertyRef Name="Id_otdela" />
+          </Key>
+          <Property Name="Id_otdela" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Namenovanie_otdela" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Rukovoditel_otdela" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Contactnie_dannie" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Sotrudniki" Relationship="Self.FK_Sotrudniki" FromRole="Otdeli" ToRole="Sotrudniki" />
+        </EntityType>
+        <EntityType Name="RaschetZP">
+          <Key>
+            <PropertyRef Name="Id_zp" />
+          </Key>
+          <Property Name="Id_zp" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id_sotrudnika" Type="Int32" />
+          <Property Name="Stavka" Type="Int32" />
+          <Property Name="Kol_vo_chasov" Type="Int32" />
+          <Property Name="Summa_k_viplate_do" Type="Int32" />
+          <Property Name="Data" Type="DateTime" Precision="3" />
+          <Property Name="Summa_k_viplate_posle" Type="Int32" />
+          <NavigationProperty Name="Sotrudniki" Relationship="Self.FK_RaschetZP_ToTable" FromRole="RaschetZP" ToRole="Sotrudniki" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nazvanie_roli" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Users" Relationship="Self.FK__Users__Id_role__38996AB5" FromRole="Role" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Sotrudniki">
+          <Key>
+            <PropertyRef Name="Id_sotrudnika" />
+          </Key>
+          <Property Name="Id_sotrudnika" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Familiya" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Imya" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Otchestvo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Id_dolzhnost" Type="Int32" />
+          <Property Name="Photo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Id_otdela" Type="Int32" />
+          <NavigationProperty Name="Dolzhnost" Relationship="Self.FK_Sotrudniki_To" FromRole="Sotrudniki" ToRole="Dolzhnost" />
+          <NavigationProperty Name="Lichnie_dannie" Relationship="Self.FK_Lichnie_dannie" FromRole="Sotrudniki" ToRole="Lichnie_dannie" />
+          <NavigationProperty Name="Otdeli" Relationship="Self.FK_Sotrudniki" FromRole="Sotrudniki" ToRole="Otdeli" />
+          <NavigationProperty Name="RaschetZP" Relationship="Self.FK_RaschetZP_ToTable" FromRole="Sotrudniki" ToRole="RaschetZP" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Id_role" Type="Int32" />
+          <NavigationProperty Name="Role" Relationship="Self.FK__Users__Id_role__38996AB5" FromRole="Users" ToRole="Role" />
+        </EntityType>
+        <Association Name="FK_Sotrudniki_To">
+          <End Role="Dolzhnost" Type="Self.Dolzhnost" Multiplicity="0..1" />
+          <End Role="Sotrudniki" Type="Self.Sotrudniki" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dolzhnost">
+              <PropertyRef Name="Id_dolzhnost" />
+            </Principal>
+            <Dependent Role="Sotrudniki">
+              <PropertyRef Name="Id_dolzhnost" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Lichnie_dannie">
+          <End Role="Sotrudniki" Type="Self.Sotrudniki" Multiplicity="0..1" />
+          <End Role="Lichnie_dannie" Type="Self.Lichnie_dannie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sotrudniki">
+              <PropertyRef Name="Id_sotrudnika" />
+            </Principal>
+            <Dependent Role="Lichnie_dannie">
+              <PropertyRef Name="Id_sotrudnika" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sotrudniki">
+          <End Role="Otdeli" Type="Self.Otdeli" Multiplicity="0..1" />
+          <End Role="Sotrudniki" Type="Self.Sotrudniki" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Otdeli">
+              <PropertyRef Name="Id_otdela" />
+            </Principal>
+            <Dependent Role="Sotrudniki">
+              <PropertyRef Name="Id_otdela" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RaschetZP_ToTable">
+          <End Role="Sotrudniki" Type="Self.Sotrudniki" Multiplicity="0..1" />
+          <End Role="RaschetZP" Type="Self.RaschetZP" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sotrudniki">
+              <PropertyRef Name="Id_sotrudnika" />
+            </Principal>
+            <Dependent Role="RaschetZP">
+              <PropertyRef Name="Id_sotrudnika" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Users__Id_role__38996AB5">
+          <End Role="Role" Type="Self.Role" Multiplicity="0..1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="Id_role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Dolzhnost" EntityType="Self.Dolzhnost" />
+          <EntitySet Name="Lichnie_dannie" EntityType="Self.Lichnie_dannie" />
+          <EntitySet Name="Otdeli" EntityType="Self.Otdeli" />
+          <EntitySet Name="RaschetZP" EntityType="Self.RaschetZP" />
+          <EntitySet Name="Role" EntityType="Self.Role" />
+          <EntitySet Name="Sotrudniki" EntityType="Self.Sotrudniki" />
+          <EntitySet Name="Users" EntityType="Self.Users" />
+          <AssociationSet Name="FK_Sotrudniki_To" Association="Self.FK_Sotrudniki_To">
+            <End Role="Dolzhnost" EntitySet="Dolzhnost" />
+            <End Role="Sotrudniki" EntitySet="Sotrudniki" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Lichnie_dannie" Association="Self.FK_Lichnie_dannie">
+            <End Role="Sotrudniki" EntitySet="Sotrudniki" />
+            <End Role="Lichnie_dannie" EntitySet="Lichnie_dannie" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sotrudniki" Association="Self.FK_Sotrudniki">
+            <End Role="Otdeli" EntitySet="Otdeli" />
+            <End Role="Sotrudniki" EntitySet="Sotrudniki" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RaschetZP_ToTable" Association="Self.FK_RaschetZP_ToTable">
+            <End Role="Sotrudniki" EntitySet="Sotrudniki" />
+            <End Role="RaschetZP" EntitySet="RaschetZP" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Users__Id_role__38996AB5" Association="Self.FK__Users__Id_role__38996AB5">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище Otdel_kadrovModelContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="Dolzhnost">
+            <EntityTypeMapping TypeName="Otdel_kadrovModel.Dolzhnost">
+              <MappingFragment StoreEntitySet="Dolzhnost">
+                <ScalarProperty Name="Id_dolzhnost" ColumnName="Id_dolzhnost" />
+                <ScalarProperty Name="Naimenovanie_dolzhnost" ColumnName="Naimenovanie_dolzhnost" />
+                <ScalarProperty Name="Uroven_dolzhnosti" ColumnName="Uroven_dolzhnosti" />
+                <ScalarProperty Name="Status_dolzhnosti" ColumnName="Status_dolzhnosti" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Lichnie_dannie">
+            <EntityTypeMapping TypeName="Otdel_kadrovModel.Lichnie_dannie">
+              <MappingFragment StoreEntitySet="Lichnie_dannie">
+                <ScalarProperty Name="Id_dannih" ColumnName="Id_dannih" />
+                <ScalarProperty Name="Id_sotrudnika" ColumnName="Id_sotrudnika" />
+                <ScalarProperty Name="Data_rozhdeniya" ColumnName="Data_rozhdeniya" />
+                <ScalarProperty Name="Adres" ColumnName="Adres" />
+                <ScalarProperty Name="Pol" ColumnName="Pol" />
+                <ScalarProperty Name="Data_priema_na_rab" ColumnName="Data_priema_na_rab" />
+                <ScalarProperty Name="INN" ColumnName="INN" />
+                <ScalarProperty Name="Nomer_medpolisa" ColumnName="Nomer_medpolisa" />
+                <ScalarProperty Name="SNILS" ColumnName="SNILS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Otdeli">
+            <EntityTypeMapping TypeName="Otdel_kadrovModel.Otdeli">
+              <MappingFragment StoreEntitySet="Otdeli">
+                <ScalarProperty Name="Id_otdela" ColumnName="Id_otdela" />
+                <ScalarProperty Name="Namenovanie_otdela" ColumnName="Namenovanie_otdela" />
+                <ScalarProperty Name="Rukovoditel_otdela" ColumnName="Rukovoditel_otdela" />
+                <ScalarProperty Name="Contactnie_dannie" ColumnName="Contactnie_dannie" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RaschetZP">
+            <EntityTypeMapping TypeName="Otdel_kadrovModel.RaschetZP">
+              <MappingFragment StoreEntitySet="RaschetZP">
+                <ScalarProperty Name="Id_zp" ColumnName="Id_zp" />
+                <ScalarProperty Name="Id_sotrudnika" ColumnName="Id_sotrudnika" />
+                <ScalarProperty Name="Stavka" ColumnName="Stavka" />
+                <ScalarProperty Name="Kol_vo_chasov" ColumnName="Kol_vo_chasov" />
+                <ScalarProperty Name="Summa_k_viplate_do" ColumnName="Summa_k_viplate_do" />
+                <ScalarProperty Name="Data" ColumnName="Data" />
+                <ScalarProperty Name="Summa_k_viplate_posle" ColumnName="Summa_k_viplate_posle" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Role">
+            <EntityTypeMapping TypeName="Otdel_kadrovModel.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="nazvanie_roli" ColumnName="nazvanie_roli" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sotrudniki">
+            <EntityTypeMapping TypeName="Otdel_kadrovModel.Sotrudniki">
+              <MappingFragment StoreEntitySet="Sotrudniki">
+                <ScalarProperty Name="Id_sotrudnika" ColumnName="Id_sotrudnika" />
+                <ScalarProperty Name="Familiya" ColumnName="Familiya" />
+                <ScalarProperty Name="Imya" ColumnName="Imya" />
+                <ScalarProperty Name="Otchestvo" ColumnName="Otchestvo" />
+                <ScalarProperty Name="Id_dolzhnost" ColumnName="Id_dolzhnost" />
+                <ScalarProperty Name="Photo" ColumnName="Photo" />
+                <ScalarProperty Name="Id_otdela" ColumnName="Id_otdela" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="Otdel_kadrovModel.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="login" ColumnName="login" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="Id_role" ColumnName="Id_role" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

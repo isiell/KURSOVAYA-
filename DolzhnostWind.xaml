@@ -1,0 +1,57 @@
+﻿<Window x:Class="KURSOVAYA____.DolzhnostWind"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:KURSOVAYA____"
+        mc:Ignorable="d"
+        Title="DolzhnostWind" Height="450" Width="800">
+    <Grid>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FFC3DDE9"/>
+                <GradientStop Color="#FF5DBAE6" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <TextBox x:Name="Naimenovanie_dolzhnostTextBox" HorizontalAlignment="Left" Margin="81,92,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="196" FontFamily="Malgun Gothic Semilight" FontSize="14"/>
+        <TextBox x:Name="Uroven_dolzhnostiTextBox" HorizontalAlignment="Left" Margin="81,162,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="196" FontFamily="Malgun Gothic Semilight" FontSize="14"/>
+        <TextBox x:Name="Status_dolzhnostiTextBox" HorizontalAlignment="Left" Margin="81,235,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="196" FontFamily="Malgun Gothic Semilight" FontSize="14"/>
+        <ListBox x:Name="DolzhnostListBox" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="441,0,0,0" SelectionChanged="DolzhnostListBox_SelectionChanged" FontFamily="Malgun Gothic Semilight" FontSize="14"/>
+        <Button x:Name="SaveButton" Content="Сохранить" HorizontalAlignment="Left" Margin="81,297,0,0" VerticalAlignment="Top" Click="SaveButton_Click" FontFamily="Malgun Gothic Semilight" FontSize="14" Width="86" Height="22">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FFF0F4C3"/>
+                    <GradientStop Color="#FFC3FF80" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+        <Button x:Name="DeleteButton" Content="Удалить" HorizontalAlignment="Left" Margin="189,297,0,0" VerticalAlignment="Top" Click="DeleteButton_Click" FontFamily="Malgun Gothic Semilight" FontSize="14" Width="88" Height="22">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FFF0F4C3"/>
+                    <GradientStop Color="#FFC3FF80" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+        <Button x:Name="ClearButton" Content="Очистить" HorizontalAlignment="Left" Margin="81,339,0,0" VerticalAlignment="Top" Click="ClearButton_Click" FontFamily="Malgun Gothic Semilight" FontSize="14" Width="191" >
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FFF0F4C3"/>
+                    <GradientStop Color="#FFC3FF80" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+        <Label Content="Введите название должности" HorizontalAlignment="Left" Margin="79,58,0,0" VerticalAlignment="Top" FontFamily="Malgun Gothic Semilight" FontSize="14" Background="#FFC7F692"/>
+        <Label Content="Введите уровень должности" HorizontalAlignment="Left" Margin="81,128,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.053,0.248" FontFamily="Malgun Gothic Semilight" FontSize="14" Background="#FFC7F692" Width="196"/>
+        <Label Content="Введите статус должности" HorizontalAlignment="Left" Margin="81,0,0,0" VerticalAlignment="Center" RenderTransformOrigin="0.095,0.817" FontFamily="Malgun Gothic Semilight" FontSize="14" Width="196" Background="#FFC7F692"/>
+        <Button x:Name="BackButton" Content="Назад" HorizontalAlignment="Left" Margin="20,19,0,0" VerticalAlignment="Top" Click="BackButton_Click" FontFamily="Malgun Gothic Semilight" FontSize="14">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FFF0F4C3"/>
+                    <GradientStop Color="#FFC3FF80" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+
+    </Grid>
+</Window>
